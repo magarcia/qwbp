@@ -1,0 +1,16 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "./demo/docs",
+  "name": "QWBP",
+  "readme": "./README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "categorizeByGroup": true,
+  "categoryOrder": ["Connection", "Encoder", "Decoder", "Crypto", "SDP", "Errors", "*"],
+  "navigationLinks": {
+    "Specification": "https://github.com/magarcia/qwbp/blob/main/SPECIFICATION.md",
+    "GitHub": "https://github.com/magarcia/qwbp"
+  }
+}

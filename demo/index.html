@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QWBP Demo - QR-WebRTC Bootstrap Protocol</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>QWBP Demo</h1>
+      <p class="subtitle">QR-WebRTC Bootstrap Protocol</p>
+    </header>
+
+    <!-- Status indicator -->
+    <div id="status" class="status status-idle">
+      <span class="status-dot"></span>
+      <span class="status-text">Ready</span>
+    </div>
+
+    <!-- Main content area - changes based on state -->
+    <main id="main-content">
+      <!-- Initial state: Start button -->
+      <section id="section-start" class="section active">
+        <p class="instruction">
+          Connect two devices by scanning QR codes. No servers required.
+        </p>
+        <button id="btn-start" class="btn btn-primary">
+          Start Connection
+        </button>
+      </section>
+
+      <!-- QR Display and Scanner -->
+      <section id="section-qr" class="section">
+        <div class="qr-container">
+          <div class="qr-panel">
+            <h2>Your QR Code</h2>
+            <div id="qr-code" class="qr-display">
+              <div class="qr-placeholder">Generating...</div>
+            </div>
+            <p class="hint">Let the other device scan this</p>
+            <div id="qr-info" class="qr-info"></div>
+          </div>
+
+          <div class="qr-panel">
+            <h2>Scan Other Device</h2>
+            <div id="scanner-container" class="scanner-container">
+              <video id="scanner-video" autoplay playsinline></video>
+              <div class="scanner-overlay">
+                <div class="scanner-frame"></div>
+              </div>
+            </div>
+            <p class="hint">Point camera at other device's QR</p>
+          </div>
+        </div>
+
+        <div id="scan-status" class="scan-status"></div>
+
+        <button id="btn-cancel" class="btn btn-secondary hidden">
+          Cancel
+        </button>
+      </section>
+
+      <!-- Connected state: Chat -->
+      <section id="section-connected" class="section">
+        <div class="connected-header">
+          <span class="connected-icon">🔗</span>
+          <h2>Connected!</h2>
+          <p>Peer-to-peer connection established</p>
+          <div class="sas-display" id="sas-display">
+            <span class="sas-label">Verification code:</span>
+            <span class="sas-code" id="sas-code">----</span>
+            <span class="sas-hint">Both devices should show the same code</span>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages"></div>
+          <form class="chat-input" id="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Type a message..."
+              autocomplete="off"
+            >
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+
+        <button id="btn-disconnect" class="btn btn-secondary">
+          Disconnect
+        </button>
+      </section>
+
+      <!-- Error state -->
+      <section id="section-error" class="section">
+        <div class="error-content">
+          <span class="error-icon">⚠️</span>
+          <h2>Connection Failed</h2>
+          <p id="error-message">An error occurred</p>
+          <button id="btn-retry" class="btn btn-primary">
+            Try Again
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Protocol Log Panel -->
+    <aside id="protocol-log" class="protocol-log">
+      <div class="log-header">
+        <h3>Protocol Log</h3>
+        <div class="log-controls">
+          <button id="btn-clear-log" class="btn-icon" title="Clear log">
+            <span>Clear</span>
+          </button>
+          <button id="btn-toggle-log" class="btn-icon" title="Toggle log">
+            <span id="toggle-icon">−</span>
+          </button>
+        </div>
+      </div>
+      <div id="log-content" class="log-content">
+        <div id="log-entries" class="log-entries"></div>
+      </div>
+      <div class="log-stats">
+        <span id="log-stats-text">Ready to start</span>
+      </div>
+    </aside>
+
+    <footer>
+      <p>
+        <a href="https://github.com/magarcia/qwbp" target="_blank">GitHub</a> ·
+        <a href="docs/" target="_blank">API Documentation</a> ·
+        <a href="spec.html" target="_blank">Specification (HTML)</a> ·
+        <a href="spec.txt" target="_blank">Specification (TXT)</a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Demo script (bundled with all dependencies) -->
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

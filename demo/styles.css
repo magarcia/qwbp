@@ -1,0 +1,764 @@
+/* QWBP Demo Styles */
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --radius: 12px;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 12px;
+  }
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* Status indicator */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  font-weight: 500;
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-idle .status-dot {
+  background: var(--color-text-muted);
+  animation: none;
+}
+
+.status-gathering .status-dot,
+.status-displaying .status-dot,
+.status-scanned-one .status-dot {
+  background: var(--color-warning);
+}
+
+.status-connecting .status-dot {
+  background: var(--color-primary);
+}
+
+.status-connected .status-dot {
+  background: var(--color-success);
+  animation: none;
+}
+
+.status-failed .status-dot,
+.status-error .status-dot {
+  background: var(--color-error);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Main content */
+main {
+  flex: 1;
+}
+
+.section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Start section */
+#section-start {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.instruction {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-bg);
+}
+
+/* QR section */
+.qr-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+  .qr-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.qr-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .qr-panel {
+    padding: 16px;
+  }
+}
+
+.qr-panel h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.qr-display {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qr-display canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.qr-placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Scanner */
+.scanner-container {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  margin: 0 auto 16px;
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#scanner-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scanner-frame {
+  width: 160px;
+  height: 160px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.scan-status {
+  text-align: center;
+  padding: 12px;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+}
+
+.scan-status.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.scan-status.waiting {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Connected section */
+.connected-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.connected-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.connected-header h2 {
+  color: var(--color-success);
+  margin-bottom: 4px;
+}
+
+.connected-header p {
+  color: var(--color-text-muted);
+}
+
+/* Chat */
+.chat-container {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-messages:empty::after {
+  content: "No messages yet. Say hello!";
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  text-align: center;
+  margin: auto;
+}
+
+.chat-message {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.chat-message.sent {
+  align-self: flex-end;
+  background: var(--color-primary);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.received {
+  align-self: flex-start;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+  border-color: var(--color-primary);
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+/* Error section */
+.error-content {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.error-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.error-content h2 {
+  color: var(--color-error);
+  margin-bottom: 8px;
+}
+
+#error-message {
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Transfer progress */
+.transfer-progress {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+/* SAS Display */
+.sas-display {
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: var(--color-bg);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.sas-label {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sas-code {
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-text);
+}
+
+.sas-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Protocol Log Panel */
+.protocol-log {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-top: 24px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.protocol-log.collapsed .log-content {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.protocol-log.collapsed .log-stats {
+  display: none;
+}
+
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+}
+
+.log-header h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-header h3::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.log-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.log-content {
+  max-height: 300px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.log-entries {
+  padding: 12px;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.log-entry {
+  display: flex;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  animation: slideIn 0.2s ease;
+}
+
+.log-entry:hover {
+  background: var(--color-bg);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.log-timestamp {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  min-width: 70px;
+}
+
+.log-level {
+  font-weight: 600;
+  min-width: 50px;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.log-level.info {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.log-level.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.log-level.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.log-level.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.log-level.data {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+.log-level.crypto {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.log-level.ice {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.log-level.sdp {
+  background: #fdf4ff;
+  color: #86198f;
+}
+
+.log-level.qr {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.log-message {
+  flex: 1;
+  word-break: break-word;
+}
+
+.log-message code {
+  background: var(--color-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+}
+
+.log-message .hex-data {
+  color: #0891b2;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+}
+
+.log-message .ip-address {
+  color: #7c3aed;
+  font-weight: 500;
+}
+
+.log-message .highlight {
+  background: #fef08a;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.log-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--color-bg);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Empty log state */
+.log-entries:empty::after {
+  content: "Click 'Start Connection' to begin protocol logging...";
+  display: block;
+  text-align: center;
+  padding: 24px;
+  color: var(--color-text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-style: italic;
+}
+
+/* QR Info display */
+.qr-info {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: var(--color-bg);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.qr-info:empty {
+  display: none;
+}
+
+.qr-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+.qr-info-label {
+  color: var(--color-text-muted);
+}
+
+.qr-info-value {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* Scrollbar styling for log */
+.log-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-content::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+.log-content::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.log-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
