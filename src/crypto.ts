@@ -253,7 +253,7 @@ export async function generateSessionId(fingerprint: Uint8Array): Promise<string
   for (let i = 0; i < 8; i++) {
     id = (id << 8n) | BigInt(hashBytes[i]);
   }
-  return id.toString();
+  return (id >> 1n).toString();
 }
 
 /**

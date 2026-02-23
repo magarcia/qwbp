@@ -122,6 +122,11 @@ describe('Fingerprint Utilities', () => {
       const id = await generateSessionId(TEST_FINGERPRINT);
       expect(id).toMatch(/^\d+$/);
     });
+
+    it('should be no more then 63 bits', async () => {
+      const id = await generateSessionId(TEST_FINGERPRINT);
+      expect(BigInt(id)).toBeLessThanOrEqual(0x7FFF_FFFF_FFFF_FFFFn)
+    });
   });
 });
 
