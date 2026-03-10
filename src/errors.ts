@@ -189,3 +189,19 @@ export class QWBPIceError extends QWBPConnectionError {
     super(`ICE connection ${iceState}`, connectionState);
   }
 }
+
+/**
+ * Error thrown when no local ICE candidates are found during initialization
+ *
+ * This occurs when ICE gathering completes but yields zero candidates,
+ * making QR payload generation unusable for establishing a connection.
+ *
+ * @category Errors
+ */
+export class QWBPNoCandidatesError extends QWBPConnectionError {
+  override name = 'QWBPNoCandidatesError';
+
+  constructor(state?: ConnectionState | string) {
+    super('No local ICE candidates found during initialization', state);
+  }
+}

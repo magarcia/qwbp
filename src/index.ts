@@ -19,6 +19,7 @@ export {
   QWBPTimeoutError,
   QWBPSelfConnectionError,
   QWBPIceError,
+  QWBPNoCandidatesError,
 } from './errors.js';
 
 // Encoder/Decoder
