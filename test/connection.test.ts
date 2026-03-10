@@ -10,6 +10,7 @@ import {
   QWBPConnectionError,
   QWBPSelfConnectionError,
   QWBPIceError,
+  QWBPNoCandidatesError,
 } from '../src/errors.js';
 import { encode } from '../src/encoder.js';
 import { ConnectionState, Role } from '../src/types.js';
@@ -46,6 +47,14 @@ describe('QWBPConnection', () => {
       await conn.initialize();
 
       expect(conn.connectionState).toBe(ConnectionState.Displaying);
+      conn.close();
+    });
+
+    it('should throw if no local ICE candidates are gathered', async () => {
+      setMockConfig({ candidates: [] });
+
+      const conn = new QWBPConnection();
+      await expect(conn.initialize()).rejects.toThrow(QWBPNoCandidatesError);
       conn.close();
     });
   });

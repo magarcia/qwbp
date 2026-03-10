@@ -24,6 +24,7 @@ import {
   QWBPTimeoutError,
   QWBPSelfConnectionError,
   QWBPIceError,
+  QWBPNoCandidatesError,
 } from './errors.js';
 import {
   extractFingerprintFromSDP,
@@ -129,6 +130,7 @@ export class QWBPConnection {
    * Must be called before getQRPayload()
    *
    * @throws {@link QWBPConnectionError} if called in wrong state or ICE gathering fails
+   * @throws {@link QWBPNoCandidatesError} if ICE gathering completes without candidates
    */
   async initialize(): Promise<void> {
     if (this.state !== ConnectionState.Idle) {
@@ -185,6 +187,10 @@ export class QWBPConnection {
       completeSdp,
       this.options.maxCandidates
     );
+
+    if (this.localCandidates.length === 0) {
+      throw new QWBPNoCandidatesError(ConnectionState.Gathering);
+    }
 
     this.setState(ConnectionState.Displaying);
 
