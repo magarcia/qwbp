@@ -265,6 +265,11 @@ const connection = new QWBPConnection({
 - **Both behind symmetric NAT:** Requires pre-configured TURN (see above)
 - **iOS Local Network prompt:** Users may need to allow local network access
 
+## Implementations
+
+- **[qwbp](https://github.com/magarcia/qwbp)** (TypeScript) — reference implementation.
+- **[libp2p-webrtc-qr](https://github.com/NiKrause/libp2p-webrtc-qr)** by [Nico Krause](https://github.com/NiKrause) (Le-Space) — a libp2p transport that signals over QR codes. QWBP-derived compact payload, 276 characters against 1011 for a full SDP; **not wire-compatible**, as it signs the packed bytes. The small payload is also what makes an acoustic return channel practical: the answer plays back as sound in seconds rather than half a minute.
+
 ## Contributing
 
 Contributions are welcome! Please read the specification before implementing changes.
